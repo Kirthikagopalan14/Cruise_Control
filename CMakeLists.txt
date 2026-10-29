@@ -18,7 +18,7 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(googletest)
 
 # Create your executable
-add_executable(P1_Cruise_Control src/main.cpp  src/Vehicle.cpp)
+add_executable(P1_Cruise_Control src/main.cpp  src/vehicle.cpp)
 
 add_executable(vehicle_test tests/vehicle_test.cpp src/vehicle.cpp)
 # Link the library to your executable
