@@ -1,0 +1,4 @@
+Vehicle.TyreDragOnly 1 0.0363621
+Vehicle.EngineLag 1 0.0331157
+Vehicle.TopSpeed 1 0.0332389
+---

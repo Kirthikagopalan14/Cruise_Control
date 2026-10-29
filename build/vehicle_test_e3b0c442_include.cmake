@@ -1,0 +1,5 @@
+if(EXISTS "K:/Study_Material_AC/Control_Projects/Cruise_Control/build/vehicle_test_e3b0c442_tests.cmake")
+  include("K:/Study_Material_AC/Control_Projects/Cruise_Control/build/vehicle_test_e3b0c442_tests.cmake")
+else()
+  add_test(vehicle_test_NOT_BUILT vehicle_test_NOT_BUILT)
+endif()

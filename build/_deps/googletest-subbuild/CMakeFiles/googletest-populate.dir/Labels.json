@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "K:/Study_Material_AC/Control_Projects/Cruise_Control/build/_deps/googletest-subbuild/CMakeFiles/googletest-populate"
+		},
+		{
+			"file" : "K:/Study_Material_AC/Control_Projects/Cruise_Control/build/_deps/googletest-subbuild/CMakeFiles/googletest-populate.rule"
+		},
+		{
+			"file" : "K:/Study_Material_AC/Control_Projects/Cruise_Control/build/_deps/googletest-subbuild/CMakeFiles/googletest-populate-complete.rule"
+		},
+		{
+			"file" : "K:/Study_Material_AC/Control_Projects/Cruise_Control/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-build.rule"
+		},
+		{
+			"file" : "K:/Study_Material_AC/Control_Projects/Cruise_Control/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-configure.rule"
+		},
+		{
+			"file" : "K:/Study_Material_AC/Control_Projects/Cruise_Control/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-download.rule"
+		},
+		{
+			"file" : "K:/Study_Material_AC/Control_Projects/Cruise_Control/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-install.rule"
+		},
+		{
+			"file" : "K:/Study_Material_AC/Control_Projects/Cruise_Control/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-mkdir.rule"
+		},
+		{
+			"file" : "K:/Study_Material_AC/Control_Projects/Cruise_Control/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-patch.rule"
+		},
+		{
+			"file" : "K:/Study_Material_AC/Control_Projects/Cruise_Control/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-test.rule"
+		},
+		{
+			"file" : "K:/Study_Material_AC/Control_Projects/Cruise_Control/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/googletest-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"googletest-populate"
+		],
+		"name" : "googletest-populate"
+	}
+}

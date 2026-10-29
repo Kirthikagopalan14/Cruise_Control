@@ -1,0 +1,27 @@
+{
+  "tests": 3,
+  "name": "AllTests",
+  "testsuites": [
+    {
+      "name": "Vehicle",
+      "tests": 3,
+      "testsuite": [
+        {
+          "name": "TyreDragOnly",
+          "file": "K:\\Study_Material_AC\\Control_Projects\\Cruise_Control\\tests\\vehicle_test.cpp",
+          "line": 10
+        },
+        {
+          "name": "EngineLag",
+          "file": "K:\\Study_Material_AC\\Control_Projects\\Cruise_Control\\tests\\vehicle_test.cpp",
+          "line": 27
+        },
+        {
+          "name": "TopSpeed",
+          "file": "K:\\Study_Material_AC\\Control_Projects\\Cruise_Control\\tests\\vehicle_test.cpp",
+          "line": 41
+        }
+      ]
+    }
+  ]
+}
