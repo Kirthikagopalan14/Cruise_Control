@@ -19,15 +19,21 @@ FetchContent_MakeAvailable(googletest)
 
 # Create your executable
 add_executable(P1_Cruise_Control src/main.cpp  src/vehicle.cpp)
+add_library(vehicle src/vehicle.cpp src/pid.cpp)
+target_include_directories(vehicle PUBLIC include)
+add_executable(vehicle_tests 
+    tests/vehicle_test.cpp 
+    tests/pid_test.cpp 
+    tests/closed_loop_test.cpp)
 
-add_executable(vehicle_test tests/vehicle_test.cpp src/vehicle.cpp)
 # Link the library to your executable
-
-target_link_libraries(vehicle_test PRIVATE GTest::gtest_main)
-
+target_link_libraries(vehicle_tests PRIVATE vehicle GTest::gtest_main)
 
 enable_testing()
 
 include(GoogleTest)
 
-gtest_discover_tests(vehicle_test)
+gtest_discover_tests(vehicle_tests)
+
+# add_executable(cruise_sim app/cruise_sim.cpp)
+# target_link_libraries(cruise_sim PRIVATE vehicle)
