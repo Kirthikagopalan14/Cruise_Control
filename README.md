@@ -4,6 +4,20 @@
 
 This project implements a longitudinal vehicle model in C++17 as the foundation for a cruise control system. The car drives in a straight line, and its speed (m/s) and current engine force (N) change over time. The driver provides a force command, but the engine responds gradually, with a time constant of approximately 0.3 seconds. The model considers aerodynamic drag, tyre rolling resistance, and the effect of road slope on vehicle motion. CMake manages the build process, Google Test verifies the model through unit tests, and GitHub Actions automates building and testing.
 
+### Results
+
+**Step response (`docs/cruise_step.png`)**
+
+The top plot shows speed against the target, the middle plot shows the force the controller asked for against the force the engine delivered, and the bottom plot shows the road slope.
+
+![Cruise step response](docs/cruise_step.png)
+
+**Anti-windup comparison (`docs/windup_comparison.png`)**
+
+Speed against the target with anti-windup on and off, using the same scenario.
+
+![Anti-windup comparison](docs/windup_comparison.png)
+
 ## The 5 Formulas
 
 **1. Air Drag**
@@ -102,6 +116,56 @@ ctest --test-dir build --output-on-failure
 ```
 
 Google Test reports whether the available vehicle-model tests pass or fail.
+
+## Closed-Loop Cruise Control
+
+The vehicle model is now driven by a PID controller (`pid.hpp`) with optional anti-windup. A simulation program logs a 60-second run to CSV, two Python scripts plot the logs, and a closed-loop test checks the controller against a set of rules.
+
+### New Files
+
+| File                         | Purpose                                                                                         |
+| ---------------------------- | ----------------------------------------------------------------------------------------------- |
+| `cruise_sim.cpp`             | Runs the closed-loop simulation and writes a CSV log. Usage: `cruise_sim <1 or 0> <output.csv>` |
+| `scripts/plot_cruise.py`     | Plots speed against target, asked and actual force, and road slope from one CSV                 |
+| `scripts/plot_windup.py`     | Compares speed with anti-windup on and off from two CSVs                                        |
+| `tests/closed_loop_test.cpp` | Google Test case `ClosedLoop.MeetsSpec`                                                         |
+
+The first argument of `cruise_sim` switches anti-windup on (`1`) or off (`0`). The CSV columns are `t_s`, `ref_mps`, `speed_mps`, `force_cmd_n`, `force_actual_n` and `slope_rad`.
+
+### Simulation Scenario
+
+| Time        | Event                                     |
+| ----------- | ----------------------------------------- |
+| 0 s         | Target speed is 20 m/s on a flat road     |
+| 30 s        | A 3 percent hill starts (`atan(0.03)` rad) |
+| 45 s        | Target speed steps from 20 m/s to 25 m/s  |
+| 60 s        | End of simulation (time step 0.01 s)      |
+
+### Closed-Loop Test
+
+| Test Name  | Initial Setup                                                  | Simulation                                                              |
+| ---------- | -------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `MeetsSpec` | Default `Vehicle` and default `pid_Config`, target 20 m/s      | 4500 steps of `dt = 0.01` (45 s), with the 3 percent hill starting at 30 s |
+
+The test passes only if all four rules hold:
+
+| Rule | Check                                                          | Limit       |
+| ---- | -------------------------------------------------------------- | ----------- |
+| 1    | Peak speed (overshoot of at most 1 m/s, 5 percent)             | ≤ 21.0 m/s  |
+| 2    | Largest `|speed - 20|` for t in [15, 30] s, before the hill    | ≤ 0.4 m/s   |
+| 3    | Largest `|speed - 20|` for t in [40, 45] s, after the hill     | ≤ 0.4 m/s   |
+| 4    | Commanded force stays between `u_min` and `u_max` at every step | always true |
+
+### Reproduce the Results
+
+Run these from the project root after building:
+
+```bash
+cruise_sim 1 cruise.csv
+cruise_sim 0 no_aw.csv
+python scripts/plot_cruise.py cruise.csv docs/cruise_step.png
+python scripts/plot_windup.py cruise.csv no_aw.csv docs/windup_comparison.png
+```
 
 ## Out of Scope
 
