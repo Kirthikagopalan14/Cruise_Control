@@ -35,5 +35,5 @@ include(GoogleTest)
 
 gtest_discover_tests(vehicle_tests)
 
-# add_executable(cruise_sim app/cruise_sim.cpp)
-# target_link_libraries(cruise_sim PRIVATE vehicle)
+add_executable(cruise_sim apps/cruise_sim.cpp)
+target_link_libraries(cruise_sim PRIVATE vehicle)
